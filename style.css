@@ -1,0 +1,1032 @@
+/* =========================
+   GLOBAL BASE
+========================= */
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: black;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+
+/* =========================
+   THEME VARIABLES
+========================= */
+
+:root {
+  --text-color: white;
+  --shadow-color: black;
+
+  --inverse-text-color: black;
+  --inverse-shadow-color: white;
+
+  --panel-bg: rgba(0, 0, 0, 0.9);
+  --panel-text: white;
+
+  --modal-bg: white;
+  --modal-text: black;
+
+  --button-bg: rgba(0, 0, 0, 0.45);
+  --button-text: white;
+  --button-border: white;
+}
+
+body.light-mode {
+  --text-color: black;
+  --shadow-color: white;
+
+  --inverse-text-color: white;
+  --inverse-shadow-color: black;
+
+  --panel-bg: rgba(255, 255, 255, 0.9);
+  --panel-text: black;
+
+  --modal-bg: white;
+  --modal-text: black;
+
+  --button-bg: rgba(255, 255, 255, 0.75);
+  --button-text: black;
+  --button-border: black;
+}
+
+
+/* =========================
+   BACKGROUND VIDEO
+========================= */
+
+#bgVideo {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+/* =========================
+   MAIN UI LAYER
+========================= */
+
+.ui {
+  position: relative;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+}
+
+
+/* =========================
+   TITLE HEADER
+========================= */
+
+.title {
+  position: absolute;
+  top: 3vh;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  margin: 0;
+
+  color: var(--text-color);
+  font-size: clamp(2rem, 3vw, 4rem);
+  font-weight: bold;
+  text-shadow: 0 0 6px var(--shadow-color);
+  white-space: nowrap;
+}
+
+.title-icon {
+  width: 48px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+
+/* =========================
+   LEFT CONTROL PANEL
+========================= */
+
+.left-controls {
+  position: absolute;
+  top: 5vh;
+  left: 1.3vw;
+
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+
+  width: 24vw;
+  max-width: 330px;
+  min-width: 220px;
+}
+
+#resetButton,
+#configureButton,
+#spinButton,
+#themeToggleButton {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#resetButton {
+  align-self: flex-start;
+
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-border);
+  border-radius: 4px;
+
+  padding: 1vh 1.7vw;
+
+  font-size: clamp(1.3rem, 2.1vw, 2rem);
+  text-shadow: 0 0 5px var(--shadow-color);
+}
+
+#configureButton {
+  width: 100%;
+
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-border);
+  border-radius: 5px;
+
+  padding: 0.7vh 0;
+
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  text-shadow: 0 0 5px var(--shadow-color);
+}
+
+
+/* =========================
+   TIER DROPDOWN
+========================= */
+
+.tier-dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.tier-button {
+  width: 100%;
+
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-border);
+
+  padding: 1vh 0.5vw;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: bold;
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  text-align: left;
+  text-shadow: 0 0 5px var(--shadow-color);
+
+  cursor: pointer;
+}
+
+.tier-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+
+  width: 160%;
+
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-border);
+  backdrop-filter: blur(6px);
+
+  z-index: 20;
+}
+
+.tier-option {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 12px;
+
+  padding: 8px;
+
+  color: var(--button-text);
+  cursor: pointer;
+
+  transition:
+    background 0.08s ease,
+    filter 0.08s ease,
+    transform 0.08s ease;
+}
+
+.tier-option:hover {
+  background: rgba(128, 128, 128, 0.35);
+}
+
+.tier-option:active {
+  transform: scale(0.98);
+  filter: brightness(80%);
+}
+
+.tier-option span {
+  font-weight: bold;
+}
+
+.tier-option small {
+  color: var(--button-text);
+  opacity: 0.8;
+}
+
+.tier-option.selected-flash {
+  animation: tierClickFlash 0.18s ease;
+}
+
+@keyframes tierClickFlash {
+  0% {
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  100% {
+    background: transparent;
+  }
+}
+
+
+/* =========================
+   BOTTOM BUTTONS
+========================= */
+
+#spinButton {
+  position: absolute;
+  left: 50%;
+  bottom: 3vh;
+  transform: translateX(-50%);
+
+  width: 30vw;
+  max-width: 430px;
+  min-width: 260px;
+
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-border);
+  border-radius: 5px;
+
+  padding: 1.4vh 0;
+
+  font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+  text-shadow: 0 0 5px var(--shadow-color);
+}
+
+.theme-toggle {
+  position: absolute;
+  left: 1.3vw;
+  bottom: 6vh;
+  z-index: 20;
+
+  width: auto;
+
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-border);
+  border-radius: 4px;
+
+  padding: 4px 10px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(0.7rem, 0.9vw, 0.95rem);
+  font-weight: bold;
+  text-shadow: 0 0 5px var(--shadow-color);
+
+  cursor: pointer;
+}
+
+.credits {
+  position: absolute;
+  left: 1.3vw;
+  bottom: 1.8vh;
+  z-index: 20;
+
+  width: auto;
+
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-border);
+  border-radius: 4px;
+
+  padding: 4px 10px;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(0.7rem, 0.9vw, 0.95rem);
+  font-weight: bold;
+  text-shadow: 0 0 5px var(--shadow-color);
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   MAIN BUTTON EFFECTS
+========================= */
+
+#resetButton,
+#configureButton,
+.theme-toggle,
+.credits,
+.contact-button {
+  transition:
+    transform 0.08s ease,
+    filter 0.08s ease,
+    box-shadow 0.08s ease;
+}
+
+#resetButton:hover,
+#configureButton:hover,
+.theme-toggle:hover,
+.credits:hover,
+.contact-button:hover {
+  filter: brightness(110%);
+}
+
+#resetButton:active,
+#configureButton:active,
+.theme-toggle:active,
+.credits:active,
+.contact-button:active {
+  transform: translateY(2px) scale(0.98);
+  filter: brightness(85%);
+}
+
+#spinButton:active {
+  transform: translateX(-50%) translateY(2px) scale(0.98);
+  filter: brightness(85%);
+}
+
+
+/* =========================
+   OUTPUT TEXT
+========================= */
+
+#output {
+  position: absolute;
+  left: 50%;
+  top: 20vh;
+  transform: translateX(-50%);
+
+  width: 70vw;
+
+  color: var(--text-color);
+  text-align: center;
+  text-shadow: 0 0 5px var(--shadow-color);
+}
+
+.output-heading {
+  color: var(--text-color);
+
+  font-size: clamp(1.2rem, 1.8vw, 2rem);
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 5px var(--shadow-color);
+
+  margin-bottom: 0.6vh;
+}
+
+.map-output {
+  margin-bottom: 5vh;
+}
+
+.map-name {
+  color: var(--text-color);
+
+  font-size: clamp(1.1rem, 1.6vw, 1.8rem);
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 5px var(--shadow-color);
+
+  margin-bottom: 1vh;
+}
+
+.map-placeholder {
+    height: 5.8rem; /* Adjust until the Relics header stays in exactly the same position */
+}
+
+.relic-row {
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+
+  margin-bottom: 12px;
+}
+
+.relic-item {
+  min-width: 180px;
+
+  color: var(--text-color);
+  font-size: clamp(1rem, 1.4vw, 1.5rem);
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 5px var(--shadow-color);
+}
+
+
+/* =========================
+   MR. PEEKS IMAGE + NOSE CLICK ZONE
+========================= */
+
+#mrPeeksImage {
+  position: absolute;
+  left: 50%;
+  bottom: 36vh;
+  transform: translateX(-50%);
+
+  width: 9vw;
+  height: auto;
+
+  display: none;
+  z-index: 5;
+}
+
+#mrPeeksNoseZone {
+  position: absolute;
+  left: 50%;
+  bottom: 50vh;
+  transform: translateX(-50%);
+
+  width: 3vw;
+  height: 3vw;
+
+  display: none;
+  z-index: 10;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   MODAL BASE
+========================= */
+
+.modal {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 50;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal-title-bar {
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+
+  background: #ab51e7;
+
+  padding: 0 10px;
+
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+}
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-weight: bold;
+}
+
+.modal-icon {
+  width: 20px;
+  height: 20px;
+
+  flex-shrink: 0;
+}
+
+
+/* =========================
+   CREDITS MODAL
+========================= */
+
+.modal-box {
+  width: min(34vw, 650px);
+  min-width: 430px;
+  background: var(--panel-bg);
+  color: var(--panel-text);
+  border: 1px solid var(--button-border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: Georgia, "Times New Roman", sans-serif;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+.modal-content {
+  padding: 14px 32px;
+
+  font-size: 16px;
+}
+
+.modal-content p {
+  margin: 3px 0;
+}
+
+.modal-content a {
+  color: #0078d7;
+
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.modal-content a:hover {
+  text-decoration: underline;
+}
+
+
+/* =========================
+   CONFIGURE MODAL
+========================= */
+
+.config-column h3,
+.config-column label {
+    color: var(--panel-text);
+}
+
+.configure-box {
+  width: min(65vw, 900px);
+  min-width: 760px;
+  height: min(55vh, 480px);
+
+  background: var(--panel-bg);
+  color: var(--panel-text);
+  border: 1px solid var(--button-border);
+
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+.configure-footer button {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-border);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  text-shadow: 0 0 5px var(--shadow-color);
+}
+.configure-content {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 28px;
+
+  height: calc(100% - 125px);
+
+  padding: 12px;
+
+  overflow-y: auto;
+}
+
+.config-column h3 {
+  margin: 0 0 8px 0;
+
+  font-size: 12px;
+}
+
+.config-column label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+
+.configure-footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+
+  height: 60px;
+
+  padding: 8px 12px;
+
+  box-sizing: border-box;
+}
+
+.configure-footer button {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--button-border);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  text-shadow: 0 0 5px var(--shadow-color);
+}
+
+.disabled-map {
+    color: #777;
+    text-decoration: line-through;
+    cursor: default;
+}
+
+.disabled-map input {
+    pointer-events: none;
+}
+
+.coming-soon-map {
+    margin-bottom: 8px;
+}
+
+.coming-soon-text {
+    margin-left: 22px;
+    margin-top: -2px;
+
+    font-size: 10px;
+    font-style: italic;
+    color: #999;
+}
+
+/* =========================
+   MODAL ANIMATIONS
+========================= */
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-3px);
+  }
+
+  40% {
+    transform: translateX(3px);
+  }
+
+  60% {
+    transform: translateX(-2px);
+  }
+
+  80% {
+    transform: translateX(2px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.2s ease;
+}
+
+@keyframes saveGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+
+  50% {
+    box-shadow: 0 0 18px #3fa9ff;
+  }
+
+  100% {
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+}
+
+.save-glow {
+  animation: saveGlow .6s ease;
+}
+
+/* =========================
+   CONTACT BUTTON
+========================= */
+.contact-button {
+    position: absolute;
+    right: 1.3vw;
+    bottom: 1.8vh;
+    z-index: 20;
+
+    display: inline-block;
+
+    background: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--button-border);
+    border-radius: 4px;
+
+    padding: 4px 10px;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(0.7rem, 0.9vw, 0.95rem);
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--shadow-color);
+
+    text-decoration: none;
+    cursor: pointer;
+
+    transition:
+        transform 0.08s ease,
+        filter 0.08s ease,
+        box-shadow 0.08s ease;
+}
+
+.contact-button:hover {
+    filter: brightness(110%);
+}
+
+.contact-button:active {
+    transform: translateY(2px) scale(0.98);
+    filter: brightness(85%);
+}
+
+/* ==========================================================
+   MOBILE SUPPORT
+========================================================== */
+
+/* ---------- Portrait Rotation Screen ---------- */
+
+#rotateOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.95);
+    z-index: 99999;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 25px;
+}
+
+.rotate-box {
+    color: white;
+    max-width: 400px;
+}
+
+.rotate-box h2 {
+    margin-bottom: 18px;
+    font-size: 2rem;
+}
+
+.rotate-box p {
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+.rotate-icon {
+    margin-top: 35px;
+    font-size: 4rem;
+}
+
+/* Show only on phones in portrait */
+
+@media (max-width:950px) and (orientation:portrait) {
+
+    #rotateOverlay {
+        display:flex;
+    }
+
+    .ui {
+        display:none;
+    }
+
+}
+
+/* ==========================================================
+   MOBILE LANDSCAPE
+========================================================== */
+
+@media (max-width:950px) and (orientation:landscape) {
+
+    html,
+    body{
+        width:100%;
+        height:100%;
+        overflow:hidden;
+    }
+
+    .ui{
+        width:100vw;
+        height:100svh;
+        overflow:hidden;
+    }
+
+    .title{
+        top:.5vh;
+        font-size:clamp(1rem,3.3vw,1.5rem);
+        gap:6px;
+    }
+
+    .title-icon{
+        width:22px;
+    }
+
+    .left-controls{
+        top:2vh;
+        left:1vw;
+        width:22vw;
+        min-width:135px;
+        max-width:190px;
+        gap:.7vh;
+    }
+
+    #resetButton,
+    #configureButton,
+    .tier-button{
+        font-size:.82rem;
+        padding:.45vh .5vw;
+    }
+
+    .tier-menu{
+        width:220%;
+        max-height:65svh;
+        overflow-y:auto;
+    }
+
+    .tier-option{
+        grid-template-columns:75px 1fr;
+        gap:6px;
+        padding:5px;
+        font-size:.72rem;
+    }
+
+    #output{
+        top:13vh;
+        width:62vw;
+    }
+
+    .output-heading{
+        font-size:.8rem;
+        margin-bottom:.15vh;
+    }
+
+    .map-output{
+        margin-bottom:1vh;
+    }
+
+    .map-name{
+        font-size:.72rem;
+        margin-bottom:.2vh;
+    }
+
+    .relic-row{
+        gap:6px;
+        margin-bottom:1px;
+    }
+
+    .relic-item{
+        min-width:82px;
+        font-size:.62rem;
+        line-height:1.05;
+    }
+
+    #spinButton{
+        position:fixed;
+        left:50%;
+        bottom:5vh;
+        transform:translateX(-50%);
+        z-index:100;
+
+        width:30vw;
+        min-width:170px;
+
+        padding:.55vh 0;
+        font-size:.85rem;
+    }
+
+    .theme-toggle{
+        position:fixed;
+        left:1vw;
+        bottom:10vh;
+        z-index:100;
+
+        font-size:.6rem;
+        padding:3px 7px;
+    }
+
+    .credits{
+        position:fixed;
+        left:1vw;
+        bottom:5vh;
+        z-index:100;
+
+        font-size:.6rem;
+        padding:3px 7px;
+    }
+
+    .contact-button{
+        position:fixed;
+        right:1vw;
+        bottom:5vh;
+        z-index:100;
+
+        font-size:.6rem;
+        padding:3px 7px;
+    }
+
+    #mrPeeksImage{
+        width:8vw;
+        bottom:34vh;
+    }
+
+    #mrPeeksNoseZone{
+        width:3vw;
+        height:3vw;
+        bottom:48vh;
+    }
+
+    .modal{
+        align-items:center;
+        padding:0;
+    }
+
+    .configure-box{
+        width:88vw;
+        min-width:0;
+        height:82svh;
+
+        display:flex;
+        flex-direction:column;
+    }
+
+    .configure-content{
+        flex:1;
+
+        display:grid;
+        grid-template-columns:repeat(5,1fr);
+
+        column-gap:10px;
+        padding:7px;
+
+        overflow-y:auto;
+    }
+
+    .config-column h3{
+        font-size:10px;
+        margin-bottom:5px;
+    }
+
+    .config-column label{
+        font-size:9px;
+        margin-bottom:4px;
+        white-space:nowrap;
+    }
+
+    .coming-soon-map{
+        margin-bottom:3px;
+    }
+
+    .coming-soon-text{
+        margin-left:18px;
+        margin-top:-3px;
+        font-size:7px;
+    }
+
+    .configure-footer{
+        flex-shrink:0;
+
+        display:grid;
+        grid-template-columns:1fr 1fr 1fr;
+
+        gap:5px;
+        padding:4px 6px;
+    }
+
+    .configure-footer button{
+        height:28px;
+        font-size:9px;
+        line-height:1;
+        padding:2px 6px;
+    }
+
+    .modal-box{
+        width:70vw;
+        min-width:0;
+    }
+
+    .modal-content{
+        font-size:12px;
+        padding:10px 18px;
+    }
+
+}
