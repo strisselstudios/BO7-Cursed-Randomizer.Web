@@ -1099,28 +1099,32 @@ body.light-mode {
    DESKTOP TEXT SIZE FORCE
 ========================= */
 
-@media (hover: hover) and (pointer: fine) and (min-width: 951px) {
-  .tier-option {
-    font-size: 1.25rem !important;
+@media (hover: hover) and (pointer: fine) {
+  #tierMenu .tier-option {
+    font-size: 18px !important;
   }
 
-  .tier-option small {
-    font-size: 1.05rem !important;
+  #tierMenu .tier-option span {
+    font-size: 18px !important;
+  }
+
+  #tierMenu .tier-option small {
+    font-size: 15px !important;
+  }
+
+  #output .output-heading {
+    font-size: 34px !important;
+  }
+
+  #output .map-name {
+    font-size: 30px !important;
+  }
+
+  #output .relic-item {
+    font-size: 24px !important;
   }
 
   #spinButton {
-    font-size: 2rem !important;
-  }
-
-  .output-heading {
-    font-size: 2.2rem !important;
-  }
-
-  .map-name {
-    font-size: 1.9rem !important;
-  }
-
-  .relic-item {
-    font-size: 1.55rem !important;
+    font-size: 32px !important;
   }
 }
