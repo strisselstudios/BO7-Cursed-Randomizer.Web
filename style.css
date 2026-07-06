@@ -1100,6 +1100,13 @@ body.light-mode {
 ========================= */
 
 @media (hover: hover) and (pointer: fine) {
+   #output .relic-row {
+     gap: 36px !important;
+   }
+
+   #output .relic-item {
+     min-width: 220px !important;
+   }
   #tierMenu .tier-option {
     font-size: 18px !important;
   }
