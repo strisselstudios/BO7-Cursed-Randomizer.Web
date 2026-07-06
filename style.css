@@ -1135,3 +1135,35 @@ body.light-mode {
     font-size: 32px !important;
   }
 }
+/* =========================
+   TABLET LANDSCAPE BUTTON FIX
+========================= */
+
+@media (pointer: coarse) and (orientation: landscape) {
+    .theme-toggle {
+        position: fixed;
+        left: 1vw;
+        bottom: 16vh;
+        z-index: 200;
+    }
+
+    .credits {
+        position: fixed;
+        left: 1vw;
+        bottom: 10vh;
+        z-index: 200;
+    }
+
+    .contact-button {
+        position: fixed;
+        right: 1vw;
+        bottom: 10vh;
+        z-index: 200;
+    }
+
+    #spinButton {
+        position: fixed;
+        bottom: 8vh;
+        z-index: 200;
+    }
+}
