@@ -773,91 +773,7 @@ body.light-mode {
     filter: brightness(85%);
 }
 
-/* ==========================================================
-   MOBILE SUPPORT
-========================================================== */
 
-/* ---------- Portrait Rotation Screen ---------- */
-
-#rotateOverlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.95);
-    z-index: 99999;
-
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    padding: 25px;
-}
-
-.rotate-box {
-    color: white;
-    max-width: 400px;
-}
-
-.rotate-box h2 {
-    margin-bottom: 18px;
-    font-size: 2rem;
-}
-
-.rotate-box p {
-    font-size: 1.2rem;
-    line-height: 1.4;
-}
-
-.rotate-icon {
-    margin-top: 35px;
-    font-size: 4rem;
-}
-
-/* ==========================================================
-   MOBILE LANDSCAPE
-========================================================== */
-
-@media (max-width:950px) and (orientation:landscape) {
-
-    html,
-    body{
-        width:100%;
-        min-height:100dvh;
-        overflow-x:hidden;
-        overflow-y:auto;
-    }
-
-    .ui{
-        display:block;
-        pointer-events:auto;
-        width:100vw;
-        min-height:calc(100dvh + 30px);
-        overflow:visible;
-    }
-
-    .title{
-        top:.5vh;
-        font-size:clamp(1rem,3.3vw,1.5rem);
-        gap:6px;
-    }
-
-    .title-icon{
-        width:22px;
-    }
-
-    .left-controls{
-        top:2vh;
-        left:1vw;
-        width:22vw;
-        min-width:135px;
-        max-width:190px;
-        gap:.7vh;
-    }
-
-    #resetButton,
-    #configureButton,
-    .tier-button{
-        font-size:.82rem;
         padding:.45vh .5vw;
     }
 
@@ -916,109 +832,266 @@ body.light-mode {
         font-size:.85rem;
     }
 
-    .theme-toggle{
-        position:fixed;
-        left:1vw;
-        bottom:calc(env(safe-area-inset-bottom) + 10vh);
-        z-index:100;
-        font-size:.6rem;
-        padding:3px 7px;
+/* ==========================================================
+   MOBILE SUPPORT
+========================================================== */
+
+#rotateOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.95);
+    z-index: 99999;
+    pointer-events: none;
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 25px;
+}
+
+.rotate-box {
+    color: white;
+    max-width: 400px;
+}
+
+.rotate-box h2 {
+    margin-bottom: 18px;
+    font-size: 2rem;
+}
+
+.rotate-box p {
+    font-size: 1.2rem;
+    line-height: 1.4;
+}
+
+.rotate-icon {
+    margin-top: 35px;
+    font-size: 4rem;
+}
+
+/* ==========================================================
+   MOBILE LANDSCAPE
+========================================================== */
+
+@media (max-width:950px) and (orientation:landscape) {
+
+    html,
+    body {
+        width: 100%;
+        height: 100dvh;
+        overflow: hidden;
     }
 
-    .credits{
-        position:fixed;
-        left:1vw;
-        bottom:calc(env(safe-area-inset-bottom) + 5vh);
-        z-index:100;
-        font-size:.6rem;
-        padding:3px 7px;
+    .ui {
+        width: 100vw;
+        height: 100dvh;
+        overflow: hidden;
     }
 
-    .contact-button{
-        position:fixed;
-        right:1vw;
-        bottom:calc(env(safe-area-inset-bottom) + 5vh);
-        z-index:100;
-        font-size:.6rem;
-        padding:3px 7px;
+    #bgVideo {
+        width: 100vw;
+        height: 100dvh;
+        object-fit: cover;
+        object-position: center bottom;
     }
 
-    #mrPeeksImage{
-        width:8vw;
-        bottom:34vh;
+    .title {
+        top: .5vh;
+        font-size: clamp(1rem,3.3vw,1.5rem);
+        gap: 6px;
     }
 
-    #mrPeeksNoseZone{
-        width:3vw;
-        height:3vw;
-        bottom:48vh;
+    .title-icon {
+        width: 22px;
     }
 
-    .modal{
-        align-items:center;
-        padding:0;
+    .left-controls {
+        top: 2vh;
+        left: 1vw;
+        width: 22vw;
+        min-width: 135px;
+        max-width: 190px;
+        gap: .7vh;
     }
 
-    .configure-box{
-        width:88vw;
-        min-width:0;
-        height:82svh;
-        display:flex;
-        flex-direction:column;
+    #resetButton,
+    #configureButton,
+    .tier-button {
+        font-size: .82rem;
+        padding: .45vh .5vw;
     }
 
-    .configure-content{
-        flex:1;
-        display:grid;
-        grid-template-columns:repeat(5,1fr);
-        column-gap:10px;
-        padding:7px;
-        overflow-y:auto;
+    .tier-menu {
+        width: 220%;
+        max-height: 65dvh;
+        overflow-y: auto;
     }
 
-    .config-column h3{
-        font-size:10px;
-        margin-bottom:5px;
+    .tier-option {
+        grid-template-columns: 75px 1fr;
+        gap: 6px;
+        padding: 5px;
+        font-size: .72rem;
     }
 
-    .config-column label{
-        font-size:9px;
-        margin-bottom:4px;
-        white-space:nowrap;
+    #output {
+        top: 13vh;
+        width: 62vw;
     }
 
-    .coming-soon-map{
-        margin-bottom:3px;
+    .output-heading {
+        font-size: .8rem;
+        margin-bottom: .15vh;
     }
 
-    .coming-soon-text{
-        margin-left:18px;
-        margin-top:-3px;
-        font-size:7px;
+    .map-output {
+        margin-bottom: 1vh;
     }
 
-    .configure-footer{
-        flex-shrink:0;
-        display:grid;
-        grid-template-columns:1fr 1fr 1fr;
-        gap:5px;
-        padding:4px 6px;
+    .map-name {
+        font-size: .72rem;
+        margin-bottom: .2vh;
     }
 
-    .configure-footer button{
-        height:28px;
-        font-size:9px;
-        line-height:1;
-        padding:2px 6px;
+    .relic-row {
+        gap: 6px;
+        margin-bottom: 1px;
     }
 
-    .modal-box{
-        width:70vw;
-        min-width:0;
+    .relic-item {
+        min-width: 82px;
+        font-size: .62rem;
+        line-height: 1.05;
     }
 
-    .modal-content{
-        font-size:12px;
-        padding:10px 18px;
+    #spinButton {
+        position: fixed;
+        left: 50%;
+        bottom: calc(env(safe-area-inset-bottom) + 2vh);
+        transform: translateX(-50%);
+        z-index: 100;
+
+        width: 30vw;
+        min-width: 170px;
+
+        padding: .55vh 0;
+        font-size: .85rem;
+    }
+
+    .theme-toggle {
+        position: fixed;
+        left: 1vw;
+        bottom: calc(env(safe-area-inset-bottom) + 8vh);
+        z-index: 100;
+
+        font-size: .6rem;
+        padding: 3px 7px;
+    }
+
+    .credits {
+        position: fixed;
+        left: 1vw;
+        bottom: calc(env(safe-area-inset-bottom) + 3vh);
+        z-index: 100;
+
+        font-size: .6rem;
+        padding: 3px 7px;
+    }
+
+    .contact-button {
+        position: fixed;
+        right: 1vw;
+        bottom: calc(env(safe-area-inset-bottom) + 3vh);
+        z-index: 100;
+
+        font-size: .6rem;
+        padding: 3px 7px;
+    }
+
+    #mrPeeksImage {
+        width: 8vw;
+        bottom: 34vh;
+    }
+
+    #mrPeeksNoseZone {
+        width: 3vw;
+        height: 3vw;
+        bottom: 48vh;
+    }
+
+    .modal {
+        align-items: center;
+        padding: 0;
+    }
+
+    .configure-box {
+        width: 88vw;
+        min-width: 0;
+        height: 82dvh;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .configure-content {
+        flex: 1;
+
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+
+        column-gap: 10px;
+        padding: 7px;
+
+        overflow-y: auto;
+    }
+
+    .config-column h3 {
+        font-size: 10px;
+        margin-bottom: 5px;
+    }
+
+    .config-column label {
+        font-size: 9px;
+        margin-bottom: 4px;
+        white-space: nowrap;
+    }
+
+    .coming-soon-map {
+        margin-bottom: 3px;
+    }
+
+    .coming-soon-text {
+        margin-left: 18px;
+        margin-top: -3px;
+        font-size: 7px;
+    }
+
+    .configure-footer {
+        flex-shrink: 0;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+
+        gap: 5px;
+        padding: 4px 6px;
+    }
+
+    .configure-footer button {
+        height: 28px;
+        font-size: 9px;
+        line-height: 1;
+        padding: 2px 6px;
+    }
+
+    .modal-box {
+        width: 70vw;
+        min-width: 0;
+    }
+
+    .modal-content {
+        font-size: 12px;
+        padding: 10px 18px;
     }
 }
