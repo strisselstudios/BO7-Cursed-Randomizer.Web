@@ -836,6 +836,36 @@ body.light-mode {
    MOBILE SUPPORT
 ========================================================== */
 
+/* =========================
+   DESKTOP TEXT SIZE FIX
+========================= */
+
+@media (min-width: 951px) {
+  .tier-option {
+    font-size: 1.1rem;
+  }
+
+  .tier-option small {
+    font-size: 0.95rem;
+  }
+
+  #spinButton {
+    font-size: clamp(1.4rem, 2.2vw, 2.2rem);
+  }
+
+  .output-heading {
+    font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+  }
+
+  .map-name {
+    font-size: clamp(1.4rem, 2vw, 2rem);
+  }
+
+  .relic-item {
+    font-size: clamp(1.2rem, 1.7vw, 1.7rem);
+  }
+}
+
 #rotateOverlay {
     display: none;
     position: fixed;
