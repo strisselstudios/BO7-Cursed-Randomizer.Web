@@ -539,3 +539,34 @@ function generateRelics() {
 
   return html;
 }
+
+const rotateOverlay = document.getElementById("rotateOverlay");
+const ui = document.querySelector(".ui");
+
+function updateRotateOverlay() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
+  const isPortrait = height > width;
+
+  if (isTouchDevice && isPortrait) {
+    rotateOverlay.style.display = "flex";
+    rotateOverlay.style.pointerEvents = "auto";
+    ui.style.display = "none";
+  } else {
+    rotateOverlay.style.display = "none";
+    rotateOverlay.style.pointerEvents = "none";
+    ui.style.display = "block";
+  }
+}
+
+function delayedRotateCheck() {
+  updateRotateOverlay();
+  setTimeout(updateRotateOverlay, 250);
+  setTimeout(updateRotateOverlay, 600);
+}
+
+window.addEventListener("load", delayedRotateCheck);
+window.addEventListener("resize", delayedRotateCheck);
+window.addEventListener("orientationchange", delayedRotateCheck);
