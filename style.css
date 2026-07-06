@@ -12,6 +12,21 @@ body {
   font-family: Georgia, "Times New Roman", serif;
 }
 
+@supports (-webkit-touch-callout: none) {
+  html,
+  body {
+    height: 100dvh;
+  }
+
+  .ui {
+    min-height: 100dvh;
+  }
+
+  #bgVideo {
+    height: 100dvh;
+  }
+}
+
 
 /* =========================
    THEME VARIABLES
@@ -798,20 +813,6 @@ body.light-mode {
     font-size: 4rem;
 }
 
-/* Show only on phones in portrait */
-
-@media (max-width:950px) and (orientation:portrait) {
-
-    #rotateOverlay {
-        display:flex;
-    }
-
-    .ui {
-        display:none;
-    }
-
-}
-
 /* ==========================================================
    MOBILE LANDSCAPE
 ========================================================== */
@@ -821,14 +822,17 @@ body.light-mode {
     html,
     body{
         width:100%;
-        height:100%;
-        overflow:hidden;
+        min-height:100dvh;
+        overflow-x:hidden;
+        overflow-y:auto;
     }
 
     .ui{
+        display:block;
+        pointer-events:auto;
         width:100vw;
-        height:100svh;
-        overflow:hidden;
+        min-height:calc(100dvh + 30px);
+        overflow:visible;
     }
 
     .title{
@@ -903,13 +907,11 @@ body.light-mode {
     #spinButton{
         position:fixed;
         left:50%;
-        bottom:5vh;
+        bottom:calc(env(safe-area-inset-bottom) + 5vh);
         transform:translateX(-50%);
         z-index:100;
-
         width:30vw;
         min-width:170px;
-
         padding:.55vh 0;
         font-size:.85rem;
     }
@@ -917,9 +919,8 @@ body.light-mode {
     .theme-toggle{
         position:fixed;
         left:1vw;
-        bottom:10vh;
+        bottom:calc(env(safe-area-inset-bottom) + 10vh);
         z-index:100;
-
         font-size:.6rem;
         padding:3px 7px;
     }
@@ -927,9 +928,8 @@ body.light-mode {
     .credits{
         position:fixed;
         left:1vw;
-        bottom:5vh;
+        bottom:calc(env(safe-area-inset-bottom) + 5vh);
         z-index:100;
-
         font-size:.6rem;
         padding:3px 7px;
     }
@@ -937,9 +937,8 @@ body.light-mode {
     .contact-button{
         position:fixed;
         right:1vw;
-        bottom:5vh;
+        bottom:calc(env(safe-area-inset-bottom) + 5vh);
         z-index:100;
-
         font-size:.6rem;
         padding:3px 7px;
     }
@@ -964,20 +963,16 @@ body.light-mode {
         width:88vw;
         min-width:0;
         height:82svh;
-
         display:flex;
         flex-direction:column;
     }
 
     .configure-content{
         flex:1;
-
         display:grid;
         grid-template-columns:repeat(5,1fr);
-
         column-gap:10px;
         padding:7px;
-
         overflow-y:auto;
     }
 
@@ -1004,10 +999,8 @@ body.light-mode {
 
     .configure-footer{
         flex-shrink:0;
-
         display:grid;
         grid-template-columns:1fr 1fr 1fr;
-
         gap:5px;
         padding:4px 6px;
     }
@@ -1028,5 +1021,4 @@ body.light-mode {
         font-size:12px;
         padding:10px 18px;
     }
-
 }
