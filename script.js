@@ -126,9 +126,9 @@ button.addEventListener("click", () => {
   video.currentTime = 0;
 
   mysteryBoxJingle.currentTime = 0;
-  mysteryBoxJingle.play();
-
-  video.play();
+  mysteryBoxJingle.play().catch(() => {});
+video.play().catch(() => {
+    state = "idle";
 });
 
 
@@ -553,11 +553,11 @@ function updateRotateOverlay() {
   if (isTouchDevice && isPortrait) {
     rotateOverlay.style.display = "flex";
     rotateOverlay.style.pointerEvents = "auto";
-    ui.style.display = "none";
+    ui.classList.add("hidden");
   } else {
     rotateOverlay.style.display = "none";
     rotateOverlay.style.pointerEvents = "none";
-    ui.style.display = "block";
+    ui.classList.remove("hidden");
   }
 }
 
