@@ -226,14 +226,30 @@ a,
   max-height: min(65svh, 460px);
   overflow-y: auto;
 
-  background: var(--button-bg);
+  background: rgba(0, 0, 0, 0.85);
   color: var(--button-text);
   border: 1px solid var(--button-border);
-  backdrop-filter: blur(6px);
 
   z-index: 20;
 }
 
+@supports ((-webkit-backdrop-filter: blur(6px)) or (backdrop-filter: blur(6px))) {
+  .tier-menu {
+    background: rgba(0, 0, 0, 0.55);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+  }
+}
+body.light-mode .tier-menu {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+@supports ((-webkit-backdrop-filter: blur(6px)) or (backdrop-filter: blur(6px))) {
+  body.light-mode .tier-menu {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(6px);
+  }
+}
 .tier-option {
   display: grid;
   grid-template-columns: minmax(80px, 120px) 1fr;
