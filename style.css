@@ -2,188 +2,207 @@
    GLOBAL BASE
 ========================= */
 
-html,
-body {
-  margin: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: black;
-  font-family: Georgia, "Times New Roman", serif;
-}
-
-@supports (-webkit-touch-callout: none) {
-  html,
-  body {
-    height: 100dvh;
-  }
-
-  .ui {
-    min-height: 100dvh;
-  }
-
-  #bgVideo {
-    height: 100dvh;
-  }
-}
-
-
-/* =========================
-   THEME VARIABLES
-========================= */
-
 :root {
   --text-color: white;
   --shadow-color: black;
-
-  --inverse-text-color: black;
-  --inverse-shadow-color: white;
-
   --panel-bg: rgba(0, 0, 0, 0.9);
   --panel-text: white;
-
-  --modal-bg: white;
-  --modal-text: black;
-
   --button-bg: rgba(0, 0, 0, 0.45);
   --button-text: white;
   --button-border: white;
+
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 body.light-mode {
   --text-color: black;
   --shadow-color: white;
-
-  --inverse-text-color: white;
-  --inverse-shadow-color: black;
-
   --panel-bg: rgba(255, 255, 255, 0.9);
   --panel-text: black;
-
-  --modal-bg: white;
-  --modal-text: black;
-
   --button-bg: rgba(255, 255, 255, 0.75);
   --button-text: black;
   --button-border: black;
 }
 
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  height: 100%;
+  background: black;
+  font-family: Georgia, "Times New Roman", serif;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+button,
+a,
+.tier-option {
+  -webkit-tap-highlight-color: transparent;
+}
 
 /* =========================
-   BACKGROUND VIDEO
+   BACKGROUND
 ========================= */
 
 #bgVideo {
   position: fixed;
   inset: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100dvh;
   object-fit: cover;
+  object-position: center;
   z-index: 0;
   pointer-events: none;
 }
 
-
 /* =========================
-   MAIN UI LAYER
+   MAIN UI
 ========================= */
 
 .ui {
   position: relative;
   z-index: 1;
-  width: 100vw;
-  height: 100vh;
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: clamp(0.5rem, 2vh, 2rem);
+
+  padding:
+    clamp(0.5rem, 2vh, 1.5rem)
+    clamp(0.5rem, 2vw, 2rem)
+    calc(clamp(0.75rem, 2vh, 1.5rem) + var(--safe-bottom));
 }
 
-
 /* =========================
-   TITLE HEADER
+   TITLE
 ========================= */
 
 .title {
-  position: absolute;
-  top: 3vh;
-  left: 50%;
-  transform: translateX(-50%);
+  justify-self: center;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: clamp(0.4rem, 1vw, 0.9rem);
 
   margin: 0;
 
   color: var(--text-color);
-  font-size: clamp(2rem, 3vw, 4rem);
+  font-size: clamp(1.4rem, 4vw, 4rem);
   font-weight: bold;
   text-shadow: 0 0 6px var(--shadow-color);
   white-space: nowrap;
 }
 
 .title-icon {
-  width: 48px;
+  width: clamp(24px, 5vw, 48px);
   height: auto;
   aspect-ratio: 1 / 1;
   object-fit: contain;
-  flex-shrink: 0;
 }
 
-
 /* =========================
-   LEFT CONTROL PANEL
+   PRIMARY CONTROL LAYOUT
 ========================= */
 
 .left-controls {
-  position: absolute;
-  top: 5vh;
-  left: 1.3vw;
+  align-self: start;
+  justify-self: start;
 
   display: flex;
   flex-direction: column;
-  gap: 3vh;
+  gap: clamp(0.5rem, 2vh, 1.5rem);
 
-  width: 24vw;
-  max-width: 330px;
-  min-width: 220px;
+  width: clamp(180px, 24vw, 330px);
 }
+
+/* =========================
+   BUTTONS
+========================= */
 
 #resetButton,
 #configureButton,
 #spinButton,
-#themeToggleButton {
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#resetButton {
-  align-self: flex-start;
-
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: 1px solid var(--button-border);
-  border-radius: 4px;
-
-  padding: 1vh 1.7vw;
-
-  font-size: clamp(1.3rem, 2.1vw, 2rem);
-  text-shadow: 0 0 5px var(--shadow-color);
-}
-
-#configureButton {
-  width: 100%;
-
+#themeToggleButton,
+.theme-toggle,
+.credits,
+.contact-button,
+.tier-button,
+.configure-footer button {
   background: var(--button-bg);
   color: var(--button-text);
   border: 1px solid var(--button-border);
   border-radius: 5px;
 
-  padding: 0.7vh 0;
-
-  font-size: clamp(1.2rem, 2vw, 2rem);
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: bold;
   text-shadow: 0 0 5px var(--shadow-color);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.08s ease,
+    filter 0.08s ease,
+    box-shadow 0.08s ease;
 }
 
+#resetButton,
+#configureButton,
+.tier-button {
+  width: 100%;
+  padding: clamp(0.35rem, 1vh, 0.8rem) clamp(0.5rem, 1vw, 1rem);
+  font-size: clamp(1rem, 2.2vw, 2rem);
+}
+
+#resetButton {
+  width: auto;
+}
+
+#spinButton {
+  justify-self: center;
+
+  width: clamp(220px, 35vw, 430px);
+  padding: clamp(0.5rem, 1.4vh, 1rem) 0;
+
+  font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+}
+
+.theme-toggle,
+.credits,
+.contact-button {
+  padding: 4px 10px;
+  font-size: clamp(0.7rem, 1vw, 0.95rem);
+  text-decoration: none;
+}
+
+#resetButton:hover,
+#configureButton:hover,
+#spinButton:hover,
+.theme-toggle:hover,
+.credits:hover,
+.contact-button:hover,
+.tier-button:hover,
+.configure-footer button:hover {
+  filter: brightness(110%);
+}
+
+#resetButton:active,
+#configureButton:active,
+#spinButton:active,
+.theme-toggle:active,
+.credits:active,
+.contact-button:active,
+.tier-button:active,
+.configure-footer button:active {
+  transform: translateY(2px) scale(0.98);
+  filter: brightness(85%);
+}
 
 /* =========================
    TIER DROPDOWN
@@ -195,29 +214,17 @@ body.light-mode {
 }
 
 .tier-button {
-  width: 100%;
-
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: 1px solid var(--button-border);
-
-  padding: 1vh 0.5vw;
-
-  font-family: Georgia, "Times New Roman", serif;
-  font-weight: bold;
-  font-size: clamp(1.2rem, 2vw, 2rem);
   text-align: left;
-  text-shadow: 0 0 5px var(--shadow-color);
-
-  cursor: pointer;
 }
 
 .tier-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 4px);
   left: 0;
 
-  width: 160%;
+  width: min(90vw, 520px);
+  max-height: min(65svh, 460px);
+  overflow-y: auto;
 
   background: var(--button-bg);
   color: var(--button-text);
@@ -229,27 +236,17 @@ body.light-mode {
 
 .tier-option {
   display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 12px;
+  grid-template-columns: minmax(80px, 120px) 1fr;
+  gap: clamp(0.4rem, 1vw, 0.8rem);
 
-  padding: 8px;
+  padding: clamp(0.35rem, 1vw, 0.6rem);
 
   color: var(--button-text);
-  cursor: pointer;
-
-  transition:
-    background 0.08s ease,
-    filter 0.08s ease,
-    transform 0.08s ease;
+  font-size: clamp(0.8rem, 1.5vw, 1.1rem);
 }
 
 .tier-option:hover {
   background: rgba(128, 128, 128, 0.35);
-}
-
-.tier-option:active {
-  transform: scale(0.98);
-  filter: brightness(80%);
 }
 
 .tier-option span {
@@ -266,203 +263,70 @@ body.light-mode {
 }
 
 @keyframes tierClickFlash {
-  0% {
+  from {
     background: rgba(255, 255, 255, 0.55);
   }
 
-  100% {
+  to {
     background: transparent;
   }
 }
 
-
 /* =========================
-   BOTTOM BUTTONS
+   RESULT TEXT STYLES
 ========================= */
-
-#spinButton {
-  position: absolute;
-  left: 50%;
-  bottom: 3vh;
-  transform: translateX(-50%);
-
-  width: 30vw;
-  max-width: 430px;
-  min-width: 260px;
-
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: 1px solid var(--button-border);
-  border-radius: 5px;
-
-  padding: 1.4vh 0;
-
-  font-size: clamp(1.4rem, 2.2vw, 2.2rem);
-  text-shadow: 0 0 5px var(--shadow-color);
-}
-
-.theme-toggle {
-  position: absolute;
-  left: 1.3vw;
-  bottom: 6vh;
-  z-index: 20;
-
-  width: auto;
-
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: 1px solid var(--button-border);
-  border-radius: 4px;
-
-  padding: 4px 10px;
-
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(0.7rem, 0.9vw, 0.95rem);
-  font-weight: bold;
-  text-shadow: 0 0 5px var(--shadow-color);
-
-  cursor: pointer;
-}
-
-.credits {
-  position: absolute;
-  left: 1.3vw;
-  bottom: 1.8vh;
-  z-index: 20;
-
-  width: auto;
-
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: 1px solid var(--button-border);
-  border-radius: 4px;
-
-  padding: 4px 10px;
-
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(0.7rem, 0.9vw, 0.95rem);
-  font-weight: bold;
-  text-shadow: 0 0 5px var(--shadow-color);
-
-  cursor: pointer;
-}
-
-
-/* =========================
-   MAIN BUTTON EFFECTS
-========================= */
-
-#resetButton,
-#configureButton,
-.theme-toggle,
-.credits,
-.contact-button {
-  transition:
-    transform 0.08s ease,
-    filter 0.08s ease,
-    box-shadow 0.08s ease;
-}
-
-#resetButton:hover,
-#configureButton:hover,
-.theme-toggle:hover,
-.credits:hover,
-.contact-button:hover {
-  filter: brightness(110%);
-}
-
-#resetButton:active,
-#configureButton:active,
-.theme-toggle:active,
-.credits:active,
-.contact-button:active {
-  transform: translateY(2px) scale(0.98);
-  filter: brightness(85%);
-}
-
-#spinButton:active {
-  transform: translateX(-50%) translateY(2px) scale(0.98);
-  filter: brightness(85%);
-}
-
-
-/* =========================
-   OUTPUT TEXT
-========================= */
-
-#output {
-  position: absolute;
-  left: 50%;
-  top: 20vh;
-  transform: translateX(-50%);
-
-  width: 70vw;
-
-  color: var(--text-color);
-  text-align: center;
-  text-shadow: 0 0 5px var(--shadow-color);
-}
 
 .output-heading {
+  margin-bottom: clamp(0.2rem, 1vh, 0.6rem);
+
   color: var(--text-color);
-
-  font-size: clamp(1.2rem, 1.8vw, 2rem);
+  font-size: clamp(1.1rem, 2vw, 2rem);
   font-weight: bold;
-  text-align: center;
-  text-shadow: 0 0 5px var(--shadow-color);
-
-  margin-bottom: 0.6vh;
 }
 
 .map-output {
-  margin-bottom: 5vh;
+  margin-bottom: clamp(1rem, 4vh, 3rem);
 }
 
 .map-name {
+  margin-bottom: clamp(0.3rem, 1vh, 1rem);
+
   color: var(--text-color);
-
-  font-size: clamp(1.1rem, 1.6vw, 1.8rem);
+  font-size: clamp(1rem, 1.8vw, 1.8rem);
   font-weight: bold;
-  text-align: center;
-  text-shadow: 0 0 5px var(--shadow-color);
-
-  margin-bottom: 1vh;
 }
 
 .map-placeholder {
-    height: 5.8rem; /* Adjust until the Relics header stays in exactly the same position */
+  min-height: clamp(3rem, 8vh, 5.8rem);
 }
 
 .relic-row {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 36px;
+  gap: clamp(0.4rem, 2vw, 2.25rem);
 
-  margin-bottom: 12px;
+  margin-bottom: clamp(0.2rem, 1vh, 0.75rem);
 }
 
 .relic-item {
-  min-width: 180px;
+  min-width: clamp(90px, 18vw, 220px);
 
   color: var(--text-color);
-  font-size: clamp(1rem, 1.4vw, 1.5rem);
+  font-size: clamp(0.8rem, 1.6vw, 1.5rem);
   font-weight: bold;
   text-align: center;
-  text-shadow: 0 0 5px var(--shadow-color);
 }
 
-
 /* =========================
-   MR. PEEKS IMAGE + NOSE CLICK ZONE
+   MR. PEEKS RESULT IMAGE
 ========================= */
 
 #mrPeeksImage {
-  position: absolute;
-  left: 50%;
-  bottom: 36vh;
-  transform: translateX(-50%);
+  justify-self: center;
+  align-self: center;
 
-  width: 9vw;
+  width: clamp(70px, 10vw, 150px);
   height: auto;
 
   display: none;
@@ -470,34 +334,41 @@ body.light-mode {
 }
 
 #mrPeeksNoseZone {
-  position: absolute;
-  left: 50%;
-  bottom: 50vh;
-  transform: translateX(-50%);
-
-  width: 3vw;
-  height: 3vw;
-
   display: none;
-  z-index: 10;
-
-  cursor: pointer;
 }
 
+/* =========================
+   BOTTOM UTILITY BUTTONS
+========================= */
+
+.bottom-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 0.5rem;
+}
+
+.bottom-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
 
 /* =========================
-   MODAL BASE
+   MODALS
 ========================= */
 
 .modal {
   position: fixed;
   inset: 0;
+  z-index: 50;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  z-index: 50;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
 .hidden {
@@ -505,13 +376,12 @@ body.light-mode {
 }
 
 .modal-title-bar {
-  height: 30px;
+  min-height: 30px;
 
   display: flex;
   align-items: center;
 
   background: #ab51e7;
-
   padding: 0 10px;
 
   font-family: Arial, sans-serif;
@@ -529,31 +399,31 @@ body.light-mode {
 .modal-icon {
   width: 20px;
   height: 20px;
-
   flex-shrink: 0;
 }
 
+.modal-box,
+.configure-box {
+  width: min(92vw, 900px);
+  max-height: 90svh;
 
-/* =========================
-   CREDITS MODAL
-========================= */
-
-.modal-box {
-  width: min(34vw, 650px);
-  min-width: 430px;
   background: var(--panel-bg);
   color: var(--panel-text);
   border: 1px solid var(--button-border);
   border-radius: 8px;
+
   overflow: hidden;
-  font-family: Georgia, "Times New Roman", sans-serif;
   box-shadow: 0 0 20px rgba(0,0,0,0.6);
 }
 
-.modal-content {
-  padding: 14px 32px;
+.modal-box {
+  max-width: 650px;
+  font-family: Georgia, "Times New Roman", serif;
+}
 
-  font-size: 16px;
+.modal-content {
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
 }
 
 .modal-content p {
@@ -562,7 +432,6 @@ body.light-mode {
 
 .modal-content a {
   color: #0078d7;
-
   font-weight: bold;
   text-decoration: none;
 }
@@ -571,57 +440,38 @@ body.light-mode {
   text-decoration: underline;
 }
 
-
 /* =========================
    CONFIGURE MODAL
 ========================= */
 
+.configure-box {
+  display: flex;
+  flex-direction: column;
+
+  height: min(90svh, 520px);
+  font-family: Arial, sans-serif;
+}
+
 .config-column h3,
 .config-column label {
-    color: var(--panel-text);
-}
-
-.configure-box {
-  width: min(65vw, 900px);
-  min-width: 760px;
-  height: min(55vh, 480px);
-
-  background: var(--panel-bg);
   color: var(--panel-text);
-  border: 1px solid var(--button-border);
-
-  border-radius: 8px;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 0 20px rgba(0,0,0,0.6);
 }
 
-.configure-footer button {
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: 1px solid var(--button-border);
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  text-shadow: 0 0 5px var(--shadow-color);
-}
 .configure-content {
+  flex: 1;
+
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  column-gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: clamp(0.5rem, 2vw, 1.75rem);
 
-  height: calc(100% - 125px);
-
-  padding: 12px;
+  padding: clamp(0.5rem, 2vw, 0.9rem);
 
   overflow-y: auto;
 }
 
 .config-column h3 {
   margin: 0 0 8px 0;
-
-  font-size: 12px;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);
 }
 
 .config-column label {
@@ -629,85 +479,101 @@ body.light-mode {
 
   margin-bottom: 8px;
 
-  font-size: 12px;
+  font-size: clamp(0.7rem, 1.1vw, 0.85rem);
   white-space: nowrap;
 }
 
-
 .configure-footer {
+  flex-shrink: 0;
+
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 
-  height: 60px;
-
   padding: 8px 12px;
-
   box-sizing: border-box;
 }
 
 .configure-footer button {
-  background: var(--button-bg);
-  color: var(--button-text);
-  border: 1px solid var(--button-border);
-  border-radius: 4px;
-  font-size: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  text-shadow: 0 0 5px var(--shadow-color);
+  padding: 0.5rem;
+  font-size: clamp(0.7rem, 1.1vw, 0.85rem);
 }
 
 .disabled-map {
-    color: #777;
-    text-decoration: line-through;
-    cursor: default;
+  color: #777;
+  text-decoration: line-through;
+  cursor: default;
 }
 
 .disabled-map input {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .coming-soon-map {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .coming-soon-text {
-    margin-left: 22px;
-    margin-top: -2px;
+  margin-left: 22px;
+  margin-top: -2px;
 
-    font-size: 10px;
-    font-style: italic;
-    color: #999;
+  font-size: clamp(0.6rem, 1vw, 0.75rem);
+  font-style: italic;
+  color: #999;
 }
 
 /* =========================
-   MODAL ANIMATIONS
+   ROTATE OVERLAY
+========================= */
+
+#rotateOverlay {
+  display: none;
+
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,.95);
+  z-index: 99999;
+  pointer-events: none;
+
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  padding: 25px;
+}
+
+.rotate-box {
+  color: white;
+  max-width: 400px;
+}
+
+.rotate-box h2 {
+  margin-bottom: 18px;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+}
+
+.rotate-box p {
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  line-height: 1.4;
+}
+
+.rotate-icon {
+  margin-top: 35px;
+  font-size: clamp(3rem, 10vw, 4rem);
+}
+
+/* =========================
+   ANIMATIONS
 ========================= */
 
 @keyframes shake {
-  0% {
-    transform: translateX(0);
-  }
-
-  20% {
-    transform: translateX(-3px);
-  }
-
-  40% {
-    transform: translateX(3px);
-  }
-
-  60% {
-    transform: translateX(-2px);
-  }
-
-  80% {
-    transform: translateX(2px);
-  }
-
-  100% {
-    transform: translateX(0);
-  }
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-3px); }
+  40% { transform: translateX(3px); }
+  60% { transform: translateX(-2px); }
+  80% { transform: translateX(2px); }
+  100% { transform: translateX(0); }
 }
 
 .shake {
@@ -715,17 +581,9 @@ body.light-mode {
 }
 
 @keyframes saveGlow {
-  0% {
-    box-shadow: 0 0 0 rgba(0,0,0,0);
-  }
-
-  50% {
-    box-shadow: 0 0 18px #3fa9ff;
-  }
-
-  100% {
-    box-shadow: 0 0 0 rgba(0,0,0,0);
-  }
+  0% { box-shadow: 0 0 0 rgba(0,0,0,0); }
+  50% { box-shadow: 0 0 18px #3fa9ff; }
+  100% { box-shadow: 0 0 0 rgba(0,0,0,0); }
 }
 
 .save-glow {
@@ -733,437 +591,418 @@ body.light-mode {
 }
 
 /* =========================
-   CONTACT BUTTON
-========================= */
-.contact-button {
-    position: absolute;
-    right: 1.3vw;
-    bottom: 1.8vh;
-    z-index: 20;
-
-    display: inline-block;
-
-    background: var(--button-bg);
-    color: var(--button-text);
-    border: 1px solid var(--button-border);
-    border-radius: 4px;
-
-    padding: 4px 10px;
-
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(0.7rem, 0.9vw, 0.95rem);
-    font-weight: bold;
-    text-shadow: 0 0 5px var(--shadow-color);
-
-    text-decoration: none;
-    cursor: pointer;
-
-    transition:
-        transform 0.08s ease,
-        filter 0.08s ease,
-        box-shadow 0.08s ease;
-}
-
-.contact-button:hover {
-    filter: brightness(110%);
-}
-
-.contact-button:active {
-    transform: translateY(2px) scale(0.98);
-    filter: brightness(85%);
-}
-
-
-        padding:.45vh .5vw;
-    }
-
-    .tier-menu{
-        width:220%;
-        max-height:65svh;
-        overflow-y:auto;
-    }
-
-    .tier-option{
-        grid-template-columns:75px 1fr;
-        gap:6px;
-        padding:5px;
-        font-size:.72rem;
-    }
-
-    #output{
-        top:13vh;
-        width:62vw;
-    }
-
-    .output-heading{
-        font-size:.8rem;
-        margin-bottom:.15vh;
-    }
-
-    .map-output{
-        margin-bottom:1vh;
-    }
-
-    .map-name{
-        font-size:.72rem;
-        margin-bottom:.2vh;
-    }
-
-    .relic-row{
-        gap:6px;
-        margin-bottom:1px;
-    }
-
-    .relic-item{
-        min-width:82px;
-        font-size:.62rem;
-        line-height:1.05;
-    }
-
-    #spinButton{
-        position:fixed;
-        left:50%;
-        bottom:calc(env(safe-area-inset-bottom) + 5vh);
-        transform:translateX(-50%);
-        z-index:100;
-        width:30vw;
-        min-width:170px;
-        padding:.55vh 0;
-        font-size:.85rem;
-    }
-
-/* ==========================================================
-   MOBILE SUPPORT
-========================================================== */
-
-#rotateOverlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.95);
-    z-index: 99999;
-    pointer-events: none;
-
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    padding: 25px;
-}
-
-.rotate-box {
-    color: white;
-    max-width: 400px;
-}
-
-.rotate-box h2 {
-    margin-bottom: 18px;
-    font-size: 2rem;
-}
-
-.rotate-box p {
-    font-size: 1.2rem;
-    line-height: 1.4;
-}
-
-.rotate-icon {
-    margin-top: 35px;
-    font-size: 4rem;
-}
-
-/* ==========================================================
-   MOBILE LANDSCAPE
-========================================================== */
-
-@media (max-width:950px) and (orientation:landscape) {
-
-    html,
-    body {
-        width: 100%;
-        height: 100dvh;
-        overflow: hidden;
-    }
-
-    .ui {
-        width: 100vw;
-        height: 100dvh;
-        overflow: hidden;
-    }
-
-    #bgVideo {
-        width: 100vw;
-        height: 100dvh;
-        object-fit: cover;
-        object-position: center bottom;
-    }
-
-    .title {
-        top: .5vh;
-        font-size: clamp(1rem,3.3vw,1.5rem);
-        gap: 6px;
-    }
-
-    .title-icon {
-        width: 22px;
-    }
-
-    .left-controls {
-        top: 2vh;
-        left: 1vw;
-        width: 22vw;
-        min-width: 135px;
-        max-width: 190px;
-        gap: .7vh;
-    }
-
-    #resetButton,
-    #configureButton,
-    .tier-button {
-        font-size: .82rem;
-        padding: .45vh .5vw;
-    }
-
-    .tier-menu {
-        width: 220%;
-        max-height: 65dvh;
-        overflow-y: auto;
-    }
-
-    .tier-option {
-        grid-template-columns: 75px 1fr;
-        gap: 6px;
-        padding: 5px;
-        font-size: .72rem;
-    }
-
-    #output {
-        top: 13vh;
-        width: 62vw;
-    }
-
-    .output-heading {
-        font-size: .8rem;
-        margin-bottom: .15vh;
-    }
-
-    .map-output {
-        margin-bottom: 1vh;
-    }
-
-    .map-name {
-        font-size: .72rem;
-        margin-bottom: .2vh;
-    }
-
-    .relic-row {
-        gap: 6px;
-        margin-bottom: 1px;
-    }
-
-    .relic-item {
-        min-width: 82px;
-        font-size: .62rem;
-        line-height: 1.05;
-    }
-
-    #spinButton {
-        position: fixed;
-        left: 50%;
-        bottom: calc(env(safe-area-inset-bottom) + 2vh);
-        transform: translateX(-50%);
-        z-index: 100;
-
-        width: 30vw;
-        min-width: 170px;
-
-        padding: .55vh 0;
-        font-size: .85rem;
-    }
-
-    .theme-toggle {
-        position: fixed;
-        left: 1vw;
-        bottom: calc(env(safe-area-inset-bottom) + 8vh);
-        z-index: 100;
-
-        font-size: .6rem;
-        padding: 3px 7px;
-    }
-
-    .credits {
-        position: fixed;
-        left: 1vw;
-        bottom: calc(env(safe-area-inset-bottom) + 3vh);
-        z-index: 100;
-
-        font-size: .6rem;
-        padding: 3px 7px;
-    }
-
-    .contact-button {
-        position: fixed;
-        right: 1vw;
-        bottom: calc(env(safe-area-inset-bottom) + 3vh);
-        z-index: 100;
-
-        font-size: .6rem;
-        padding: 3px 7px;
-    }
-
-    #mrPeeksImage {
-        width: 8vw;
-        bottom: 34vh;
-    }
-
-    #mrPeeksNoseZone {
-        width: 3vw;
-        height: 3vw;
-        bottom: 48vh;
-    }
-
-    .modal {
-        align-items: center;
-        padding: 0;
-    }
-
-    .configure-box {
-        width: 88vw;
-        min-width: 0;
-        height: 82dvh;
-
-        display: flex;
-        flex-direction: column;
-    }
-
-    .configure-content {
-        flex: 1;
-
-        display: grid;
-        grid-template-columns: repeat(5,1fr);
-
-        column-gap: 10px;
-        padding: 7px;
-
-        overflow-y: auto;
-    }
-
-    .config-column h3 {
-        font-size: 10px;
-        margin-bottom: 5px;
-    }
-
-    .config-column label {
-        font-size: 9px;
-        margin-bottom: 4px;
-        white-space: nowrap;
-    }
-
-    .coming-soon-map {
-        margin-bottom: 3px;
-    }
-
-    .coming-soon-text {
-        margin-left: 18px;
-        margin-top: -3px;
-        font-size: 7px;
-    }
-
-    .configure-footer {
-        flex-shrink: 0;
-
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-
-        gap: 5px;
-        padding: 4px 6px;
-    }
-
-    .configure-footer button {
-        height: 28px;
-        font-size: 9px;
-        line-height: 1;
-        padding: 2px 6px;
-    }
-
-    .modal-box {
-        width: 70vw;
-        min-width: 0;
-    }
-
-    .modal-content {
-        font-size: 12px;
-        padding: 10px 18px;
-    }
-}
-/* =========================
-   DESKTOP TEXT SIZE FORCE
+   COMPACT LANDSCAPE SCALING
 ========================= */
 
-@media (hover: hover) and (pointer: fine) {
-   #output .relic-row {
-     gap: 36px !important;
-   }
-
-   #output .relic-item {
-     min-width: 220px !important;
-   }
-  #tierMenu .tier-option {
-    font-size: 18px !important;
+@media (max-width: 950px) and (orientation: landscape) {
+  .ui {
+    grid-template-rows: auto 1fr auto;
+    gap: 0.35rem;
+    padding: 0.4rem 0.5rem calc(0.5rem + var(--safe-bottom));
   }
 
-  #tierMenu .tier-option span {
-    font-size: 18px !important;
+  .title {
+    font-size: clamp(1rem, 3vw, 1.5rem);
   }
 
-  #tierMenu .tier-option small {
-    font-size: 15px !important;
+  .title-icon {
+    width: 22px;
   }
 
-  #output .output-heading {
-    font-size: 34px !important;
+  .left-controls {
+    width: clamp(135px, 22vw, 190px);
+    gap: 0.35rem;
   }
 
-  #output .map-name {
-    font-size: 30px !important;
+  #resetButton,
+  #configureButton,
+  .tier-button {
+    font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+    padding: 0.3rem 0.4rem;
   }
 
-  #output .relic-item {
-    font-size: 24px !important;
+  .tier-option {
+    grid-template-columns: 75px 1fr;
+    gap: 6px;
+    padding: 5px;
+    font-size: 0.72rem;
+  }
+
+  #output {
+    margin-top: 0;
+    width: min(65vw, 700px);
+  }
+
+  .output-heading {
+    font-size: 0.8rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .map-output {
+    margin-bottom: 0.6rem;
+  }
+
+  .map-name {
+    font-size: 0.75rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .relic-row {
+    gap: 6px;
+    margin-bottom: 1px;
+  }
+
+  .relic-item {
+    min-width: 82px;
+    font-size: 0.65rem;
+    line-height: 1.05;
   }
 
   #spinButton {
-    font-size: 32px !important;
+    width: clamp(170px, 30vw, 300px);
+    padding: 0.35rem 0;
+    font-size: 0.9rem;
+  }
+
+  .theme-toggle,
+  .credits,
+  .contact-button {
+    font-size: 0.6rem;
+    padding: 3px 7px;
+  }
+
+  .configure-box {
+    height: 88svh;
+  }
+
+  .configure-content {
+    grid-template-columns: repeat(5, minmax(80px, 1fr));
+    gap: 0.4rem;
+    padding: 0.45rem;
+  }
+
+  .config-column h3 {
+    font-size: 10px;
+    margin-bottom: 5px;
+  }
+
+  .config-column label {
+    font-size: 9px;
+    margin-bottom: 4px;
+  }
+
+  .coming-soon-text {
+    margin-left: 18px;
+    font-size: 7px;
+  }
+
+  .configure-footer {
+    gap: 5px;
+    padding: 4px 6px;
+  }
+
+  .configure-footer button {
+    min-height: 28px;
+    font-size: 9px;
+    line-height: 1;
+    padding: 2px 6px;
+  }
+
+  .modal-content {
+    font-size: 12px;
+    padding: 10px 18px;
+  }
+}
+
+/* =========================
+   PORTRAIT LAYOUT ADJUSTMENTS
+========================= */
+
+@media (max-width: 600px) and (orientation: portrait) {
+  .ui {
+    grid-template-rows: auto auto 1fr auto;
+  }
+
+  .title {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .left-controls {
+    justify-self: center;
+    width: min(92vw, 330px);
+  }
+
+  .configure-content {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  }
+}
+
+/* =========================
+   FIXED HUD POSITIONING
+========================= */
+
+#output {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+
+  width: min(90vw, 900px);
+  margin: 0;
+
+  color: var(--text-color);
+  text-align: center;
+  text-shadow: 0 0 5px var(--shadow-color);
+
+  pointer-events: none;
+}
+
+#spinButton {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+}
+
+#spinButton:active {
+  transform: translateX(-50%) translateY(2px) scale(0.98);
+}
+
+#mrPeeksImage {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 35;
+}
+
+#mrPeeksNoseZone {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  z-index: 40;
+  cursor: pointer;
+  pointer-events: auto;
+
+  background: transparent;
+  border: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.bottom-links {
+  position: fixed;
+  left: clamp(0.5rem, 2vw, 2rem);
+  right: clamp(0.5rem, 2vw, 2rem);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 1.2vh);
+  z-index: 30;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 0.5rem;
+}
+
+.bottom-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+@media (orientation: portrait) {
+  #spinButton {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 14vh);
+  }
+
+  #mrPeeksImage {
+    top: 42vh;
+    width: clamp(135px, 30vw, 190px);
+  }
+
+  #mrPeeksNoseZone {
+    top: 48.5vh;
+    left: 56%;
+    width: 58px;
+    height: 58px;
+  }
+
+  .tier-button {
+    text-align: center;
+  }
+
+  .tier-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    gap: 3px;
+  }
+
+  .tier-option span,
+  .tier-option small {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (orientation: landscape) {
+  #output {
+    top: 18vh;
+    max-height: 48vh;
+    overflow: hidden;
+  }
+
+  #spinButton {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 3vh);
+  }
+
+  #mrPeeksImage {
+    top: 36vh;
+    width: clamp(85px, 9vw, 135px);
+  }
+
+  #mrPeeksNoseZone {
+    top: 38vh;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* =========================
+   PORTRAIT & LANDSCAPE OVERRIDES
+========================= */
+
+@media (orientation: portrait) {
+  #output {
+    top: 34vh;
+    max-height: 44vh;
+    overflow: hidden;
+  }
+
+  .tier-menu {
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(88vw, 520px);
+    box-sizing: border-box;
+  }
+}
+
+@media (orientation: landscape) {
+  .left-controls {
+    width: max-content;
+    min-width: 0;
+    max-width: none;
+  }
+
+  #resetButton,
+  #configureButton,
+  .tier-button {
+    width: 24ch;
+    box-sizing: border-box;
+    text-align: left;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .tier-menu {
+    width: min(50vw, 340px);
+    box-sizing: border-box;
+  }
+
+  .tier-option {
+    display: block;
+    text-align: left;
+  }
+
+  .tier-option span,
+  .tier-option small {
+    display: block;
+    text-align: left;
+  }
+
+  .bottom-links {
+    left: 0.6rem;
+    right: 0.6rem;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 2vh);
+    transform: none;
+  }
+
+  .bottom-left {
+    flex-direction: column;
   }
 }
 /* =========================
-   TABLET LANDSCAPE BUTTON FIX
+   CLICK LAYER + PORTRAIT BOTTOM BUTTON FIX
 ========================= */
 
-@media (pointer: coarse) and (orientation: landscape) {
-    .theme-toggle {
-        position: fixed;
-        left: 1vw;
-        bottom: 40vh;
-        z-index: 200;
-    }
+/* Keeps Spin clickable above fixed bottom HUD elements */
+#spinButton {
+  pointer-events: auto;
+  z-index: 60;
+}
 
-    .credits {
-        position: fixed;
-        left: 1vw;
-        bottom: 36vh;
-        z-index: 200;
-    }
+/* Prevent bottom wrapper from blocking Spin in landscape */
+@media (orientation: landscape) {
+  .bottom-links {
+    pointer-events: none;
+  }
 
-    .contact-button {
-        position: fixed;
-        right: 1vw;
-        bottom: 36vh;
-        z-index: 200;
-    }
+  .bottom-links button,
+  .bottom-links a {
+    pointer-events: auto;
+  }
+}
 
-    #spinButton {
-        position: fixed;
-        bottom: 8vh;
-        z-index: 200;
-    }
+/* Portrait bottom utility button layout */
+@media (orientation: portrait) {
+  .bottom-links {
+    left: 0;
+    right: 0;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 3vh);
+    transform: none;
+
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    justify-items: center;
+
+    padding: 0 1rem;
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+
+  .bottom-left {
+    display: contents;
+  }
+
+  #themeToggleButton {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  #creditsButton {
+    grid-column: 2;
+    justify-self: center;
+  }
+
+  #contactButton {
+    grid-column: 3;
+    justify-self: end;
+  }
+
+  #themeToggleButton,
+  #creditsButton,
+  #contactButton {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.05;
+    pointer-events: auto;
+  }
 }
