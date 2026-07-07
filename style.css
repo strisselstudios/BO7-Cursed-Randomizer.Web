@@ -1143,21 +1143,21 @@ body.light-mode {
     .theme-toggle {
         position: fixed;
         left: 1vw;
-        bottom: 16vh;
+        bottom: 40vh;
         z-index: 200;
     }
 
     .credits {
         position: fixed;
         left: 1vw;
-        bottom: 10vh;
+        bottom: 36vh;
         z-index: 200;
     }
 
     .contact-button {
         position: fixed;
         right: 1vw;
-        bottom: 10vh;
+        bottom: 36vh;
         z-index: 200;
     }
 
