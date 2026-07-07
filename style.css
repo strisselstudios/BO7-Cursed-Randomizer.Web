@@ -537,48 +537,6 @@ body.light-mode .tier-menu {
   font-style: italic;
   color: #999;
 }
-
-/* =========================
-   ROTATE OVERLAY
-========================= */
-
-#rotateOverlay {
-  display: none;
-
-  position: fixed;
-  inset: 0;
-
-  background: rgba(0,0,0,.95);
-  z-index: 99999;
-  pointer-events: none;
-
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-  padding: 25px;
-}
-
-.rotate-box {
-  color: white;
-  max-width: 400px;
-}
-
-.rotate-box h2 {
-  margin-bottom: 18px;
-  font-size: clamp(1.5rem, 5vw, 2rem);
-}
-
-.rotate-box p {
-  font-size: clamp(1rem, 3vw, 1.2rem);
-  line-height: 1.4;
-}
-
-.rotate-icon {
-  margin-top: 35px;
-  font-size: clamp(3rem, 10vw, 4rem);
-}
-
 /* =========================
    ANIMATIONS
 ========================= */
