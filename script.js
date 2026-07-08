@@ -15,7 +15,7 @@ const mrPeeksImage = document.getElementById("mrPeeksImage");
 const mrPeeksNoseZone = document.getElementById("mrPeeksNoseZone");
 
 const themeToggleButton = document.getElementById("themeToggleButton");
-const contactButton = document.getElementById("contactButton");
+const contactButton = document.getElementById("creditsContactButton");
 
 const creditsButton = document.getElementById("creditsButton");
 const creditsModal = document.getElementById("creditsModal");
