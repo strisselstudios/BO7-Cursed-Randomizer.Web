@@ -981,3 +981,14 @@ body.light-mode .tier-menu {
     pointer-events: auto;
   }
 }
+/* =========================
+   SHORT LANDSCAPE OUTPUT FIX
+   (Amazon Silk / Short Viewports)
+========================= */
+
+@media (orientation: landscape) and (max-height: 650px) {
+  #output {
+    max-height: 38vh;
+    overflow-y: auto;
+  }
+}
