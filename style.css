@@ -990,5 +990,26 @@ body.light-mode .tier-menu {
   #output {
     max-height: 38vh;
     overflow-y: auto;
+    pointer-events: auto;
+    width: min(62vw, 620px);
+  }
+
+  #resetButton,
+  #configureButton,
+  .tier-button {
+    width: 13ch;
+    text-align: center;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+/* =========================
+   TABLET PORTRAIT OUTPUT HEIGHT FIX
+========================= */
+
+@media (orientation: portrait) and (min-width: 600px) and (max-width: 1000px) {
+  #output {
+    top: 30vh;
   }
 }
