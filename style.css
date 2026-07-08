@@ -997,7 +997,7 @@ body.light-mode .tier-menu {
   #resetButton,
   #configureButton,
   .tier-button {
-    width: 13ch;
+    width: 16ch;
     text-align: center;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
