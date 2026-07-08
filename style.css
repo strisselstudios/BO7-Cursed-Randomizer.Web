@@ -133,6 +133,7 @@ a,
 .theme-toggle,
 .credits,
 .contact-button,
+.zomdle-button,
 .tier-button,
 .configure-footer button {
   background: var(--button-bg);
@@ -187,6 +188,7 @@ a,
 .theme-toggle:hover,
 .credits:hover,
 .contact-button:hover,
+.zomdle-button:hover,
 .tier-button:hover,
 .configure-footer button:hover {
   filter: brightness(110%);
@@ -198,6 +200,7 @@ a,
 .theme-toggle:active,
 .credits:active,
 .contact-button:active,
+.zomdle-button:active,
 .tier-button:active,
 .configure-footer button:active {
   transform: translateY(2px) scale(0.98);
@@ -369,6 +372,34 @@ body.light-mode .tier-menu {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
+}
+/* =========================
+   ZOMDLE BUTTON
+========================= */
+
+.zomdle-button {
+  display: block;
+  overflow: hidden;
+
+  width: clamp(145px, 18vw, 250px);
+  aspect-ratio: 3 / 1;
+
+  border: 1px solid var(--button-border);
+  border-radius: 6px;
+
+  text-decoration: none;
+  box-sizing: border-box;
+
+  z-index: 31;
+}
+
+#zomdleVideo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  pointer-events: none;
 }
 
 /* =========================
@@ -846,8 +877,14 @@ body.light-mode .tier-menu {
     width: 42px;
     height: 42px;
   }
-}
 
+  .zomdle-button {
+    position: fixed;
+    top: 8vh;
+    right: 0.6rem;
+    width: clamp(150px, 16vw, 250px);
+  }
+}
 /* =========================
    PORTRAIT & LANDSCAPE OVERRIDES
 ========================= */
@@ -943,8 +980,10 @@ body.light-mode .tier-menu {
 
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    align-items: center;
+    grid-template-rows: auto auto;
+    align-items: end;
     justify-items: center;
+    row-gap: 0.45rem;
 
     padding: 0 1rem;
     box-sizing: border-box;
@@ -957,17 +996,37 @@ body.light-mode .tier-menu {
 
   #themeToggleButton {
     grid-column: 1;
+    grid-row: 2;
     justify-self: start;
   }
 
-  #creditsButton {
+  #zomdleButton {
     grid-column: 2;
+    grid-row: 1 / span 2;
     justify-self: center;
+    align-self: center;
+
+    width: clamp(145px, 34vw, 220px);
+    margin-bottom: 20px;
+  }
+
+  #creditsButton {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
   }
 
   #contactButton {
     grid-column: 3;
+    grid-row: 2;
     justify-self: end;
+  }
+
+  #themeToggleButton,
+  #creditsButton,
+  #contactButton,
+  #zomdleButton {
+    pointer-events: auto;
   }
 
   #themeToggleButton,
@@ -978,7 +1037,6 @@ body.light-mode .tier-menu {
     align-items: center;
     justify-content: center;
     line-height: 1.05;
-    pointer-events: auto;
   }
 }
 /* =========================
