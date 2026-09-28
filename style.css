@@ -1346,6 +1346,17 @@ body.light-mode .tier-menu {
   }
 }
 
+
+/* Temporarily hide MEAT.exe preview */
+#meatExeButton[hidden] {
+  display: none !important;
+}
+
+.meat-coming-soon[hidden] {
+  display: none !important;
+}
+
+
 /* ==========================================================
   33.  MEAT.EXE COMING SOON BUTTON
    ----------------------------------------------------------
