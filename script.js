@@ -48,9 +48,29 @@ let state = "idle";
    VIDEO SETUP
 ========================= */
 
-video.load();
+function resetBackgroundVideo() {
+  video.pause();
+
+  if (video.readyState >= HTMLMediaElement.HAVE_METADATA) {
+    try {
+      video.currentTime = 0;
+    } catch (error) {
+      // The browser may briefly reject seeking while media initializes.
+    }
+  }
+}
+
 video.pause();
-video.currentTime = 0;
+
+video.addEventListener("loadedmetadata", () => {
+  if (state !== "idle") return;
+
+  try {
+    video.currentTime = 0;
+  } catch (error) {
+    // The video remains on its poster until seeking is available.
+  }
+});
 
 video.addEventListener("contextmenu", (e) => {
   e.preventDefault();
@@ -123,8 +143,7 @@ button.addEventListener("click", () => {
 
   output.innerHTML = "";
 
-  video.pause();
-  video.currentTime = 0;
+  resetBackgroundVideo();
 
   mysteryBoxJingle.currentTime = 0;
   mysteryBoxJingle.play().catch(() => {});
@@ -171,8 +190,7 @@ video.addEventListener("ended", () => {
 resetButton.addEventListener("click", () => {
   state = "idle";
 
-  video.pause();
-  video.currentTime = 0;
+  resetBackgroundVideo();
 
   mysteryBoxJingle.pause();
   mysteryBoxJingle.currentTime = 0;
@@ -518,43 +536,43 @@ function generateRelics() {
   let html = "";
 
   if (selectedMap !== null) {
-  html += `
-    <div class="map-output">
-      <div class="output-heading">Map:</div>
-      <div class="map-name">${selectedMap}</div>
-    </div>
-  `;
+    html += `
+      <div class="map-output">
+        <div class="output-heading">Map:</div>
+        <div class="map-name">${selectedMap}</div>
+      </div>
+    `;
   } else {
-   html += `
-     <div class="map-output map-placeholder"></div>
-   `;
+    html += `
+      <div class="map-output map-placeholder"></div>
+    `;
   }
 
   html += `<div class="output-heading">Relics:</div>`;
 
-html += `<div class="relic-grid">`;
+  html += `<div class="relic-grid">`;
 
-result.forEach((relic, index) => {
-  const isLastRow = index >= result.length - (result.length % 3 || 3);
-  const leftovers = result.length % 3;
+  result.forEach((relic, index) => {
+    const isLastRow = index >= result.length - (result.length % 3 || 3);
+    const leftovers = result.length % 3;
 
-  let extraClass = "";
+    let extraClass = "";
 
-  if (isLastRow && leftovers === 1) {
-    extraClass = " relic-center";
-  }
+    if (isLastRow && leftovers === 1) {
+      extraClass = " relic-center";
+    }
 
-  if (isLastRow && leftovers === 2) {
-    extraClass =
-      index === result.length - 2
-        ? " relic-left"
-        : " relic-right";
-  }
+    if (isLastRow && leftovers === 2) {
+      extraClass =
+        index === result.length - 2
+          ? " relic-left"
+          : " relic-right";
+    }
 
-  html += `<div class="relic-item${extraClass}">${relic.name}</div>`;
-});
+    html += `<div class="relic-item${extraClass}">${relic.name}</div>`;
+  });
 
-html += `</div>`;
+  html += `</div>`;
 
   return html;
 }
